@@ -11,6 +11,35 @@ In this project, I intend to develop scripts that will:
 
 These analyses will consist of RNA-seq data extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. 
 
+# All Output Files
+
+Throughout these scripts, many outputs are generated. The following section contains descriptions of what will be contained in each of these files. 
+
+## STAR (Spliced Transcripts Alignement to a Reference)
+* Aligned.out.sam : Alignments to the genome in standard SAM format.
+* Log.out : Main log file with a lot of detailed information about the run. This file is most useful for troubleshooting and debugging.
+* Log.progress.out : Reports job progress statistics, such as the number of processed reads, % of mapped reads etc.
+* Log.final.out :  Summary mapping statistics after mapping job is complete, very useful for quality control. The statistics are calculated for each read (single- or paired-end) and then summed or averaged over all reads.
+* ReadsPerGene.out.tab : 4 columns - 1) gene ID, 2) counts for unstranded RNA-seq, 3) counts for the 1st read strand aligned with RNA, 4) counts for the 2nd read strand aligned with RNA.
+* SJ.out.tab : Contains high confidence collapsed splice junctions in tab-delimited format. 
+* chrLength.txt : 
+* chrNameLength.txt :
+* chrName.txt : After indexing the genome, you can change the chromosome names in this file while keeping the same order. The names in this file will be used in all output alignment files (i.e. Alignment.out.sam).
+* chrStart.txt :
+* exonGeTrInfo.tab :
+* exonInfo.tab :
+* geneInfo.tab :
+* Genome : Comprise binary genome sequence, suffix arrays, text chromosome names/lengths, splice junctions coordinates, and transcripts/genes information. Most of these files use internal STAR format and are not intended to be utilized by the end user.
+* genomeParameters.txt :
+* SA :
+* SAindex :
+* sjdvInfo.txt :
+* sjdbList.fromGTF.out.tab :
+* sjdbList.out.tab :
+* transctiptInfo.tab :
+* 
+
+
 ## Box Folder
 
 Here is the link to the Box Folder with our data: https://auburn.box.com/s/x17154cah63h3yp4wd14ak6p0fa3t5jz
