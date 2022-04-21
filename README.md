@@ -5,11 +5,9 @@ Next generation sequencing has provided opportunities to understand the molecula
 
 ## Project Objectives
 
-In this project, I intend to develop scripts that will:
-* Clean RNA-seq reads and align them to a reference genome (bash)
+We developed the `spring-cleaning.sh` script in this repository to perform quality control measures of RNA-seq data that was sequenced with Illumina methods. In addition, `spring-cleaning.sh` aligns trimmed RNA-seq reads to a reference genome that was obtained via NCBI. 
 
-
-These analyses will consist of RNA-seq data extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. 
+Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. We thank these mice for their service and dedication to the advancement of our scripting skills. 
 
 
 # Script Functions
