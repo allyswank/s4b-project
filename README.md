@@ -87,6 +87,7 @@ After aligning RNA-seq data to a reference genome or transcriptome and obtaining
 The genes that are highly expressed can then be passed through *DESeq2*, a program to analyze differential gene expression between treatment groups. Yalamanchili et al. (2019) provides descriptive documentation on these analyses, and the code outlined in this section was modified from their manuscript published in *Current Protocols in Bioinformatics*. This code can be further adapted to analyze any other RNA-seq dataset. 
 
 ####### Create data objects:
+
 `> sample.names <- sort(paste(c(“CASE”, “CONTROL”), rep(1:3, each=2), sep=““))
 > file.names <- paste(“../”, sample.names, “/”, sample.names, “.count.txt”,
 sep=““)
@@ -94,7 +95,6 @@ sep=““)
 > sampleTable <- data.frame(sampleName=sample.names,
 fileName=file.names,
 condition=conditions)
-> # read in the gene count data from STAR
 > ddsGENECOUNT<-DESeqDataSetFromGeneCount(sampleTable=sampleTable,
 directory=“.”,
 design=~ condition )`
@@ -103,15 +103,14 @@ This step tells R the sample identifiers, names of files with gene counts, and e
 
 
 ######Run differential gene analysis:
+
 `> ddsGENECOUNT <- ddsGENECOUNT[rowSums(counts(ddsGENECOUNT)) > 10, ]
 > dds <-DESeq(ddsGENECOUNT)`
 
 
 ######Quality checks on the samples with a PCA plot and heatmap:
 `> rld <- rlogTransformation(dds, blind=FALSE)
-> # Plot PCA plot
 > plotPCA(rld, intgroup=“condition”, ntop=nrow(counts(ddsGENECOUNT)))
-> # Plot correlation heatmap
 > cU <-cor( as.matrix(assay(rld)))
 > cols <- c( “dodgerblue3”, “firebrick3” )[condition]
 > heatmap.2(cU, symm=TRUE, col= colorRampPalette(c(“darkblue”,”white”))
