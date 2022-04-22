@@ -5,14 +5,14 @@ Next generation sequencing has provided opportunities to understand the molecula
 
 # Project Objectives
 
-We developed the `spring-cleaning.sh` script in this repository to perform quality control measures of RNA-seq data that was sequenced with Illumina methods. In addition, `spring-cleaning.sh` aligns trimmed RNA-seq reads to a reference genome that was obtained via NCBI. 
+We developed the `~/RNASeq_Data/spring-cleaning.sh` script in this repository to perform quality control measures of RNA-seq data that was sequenced with Illumina methods. In addition, `spring-cleaning.sh` aligns trimmed RNA-seq reads to a reference genome that was obtained via NCBI. 
 
 Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. We thank these mice for their service and dedication to the advancement of our scripting skills. 
 
 
 # Script Functions
 
-Prior to data analysis, it is useful to understand what the purpose of each function will be. Here, I will outline the objective of each function that is implemented in `spring_cleaning.sh` and the input files required. The next section will also highlight all output files generated in each function. 
+Prior to data analysis, it is useful to understand what the purpose of each function will be. Here, I will outline the objective of each function that is implemented in `spring-cleaning.sh` and the input files required. The next section will also highlight all output files generated in each function. 
 
 
 ***quality_check***
