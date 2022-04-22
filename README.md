@@ -89,14 +89,21 @@ The genes that are highly expressed can then be passed through *DESeq2*, a progr
 ####### Create data objects:
 
 `> sample.names <- sort(paste(c(“CASE”, “CONTROL”), rep(1:3, each=2), sep=““))
-> file.names <- paste(“../”, sample.names, “/”, sample.names, “.count.txt”,
-sep=““)
+
+> file.names <- paste(“../”, sample.names, “/”, sample.names, “.count.txt”,sep=““)
+
 > conditions <- factor(c(rep(“CASE”, 3), rep(“CONTROL”, 3)))
+
 > sampleTable <- data.frame(sampleName=sample.names,
+
 fileName=file.names,
+
 condition=conditions)
+
 > ddsGENECOUNT<-DESeqDataSetFromGeneCount(sampleTable=sampleTable,
+
 directory=“.”,
+
 design=~ condition )`
 
 This step tells R the sample identifiers, names of files with gene counts, and experiment conditions for each sample.
@@ -105,19 +112,30 @@ This step tells R the sample identifiers, names of files with gene counts, and e
 ######Run differential gene analysis:
 
 `> ddsGENECOUNT <- ddsGENECOUNT[rowSums(counts(ddsGENECOUNT)) > 10, ]
+
 > dds <-DESeq(ddsGENECOUNT)`
 
 
 ######Quality checks on the samples with a PCA plot and heatmap:
+
 `> rld <- rlogTransformation(dds, blind=FALSE)
+
 > plotPCA(rld, intgroup=“condition”, ntop=nrow(counts(ddsGENECOUNT)))
+
 > cU <-cor( as.matrix(assay(rld)))
+
 > cols <- c( “dodgerblue3”, “firebrick3” )[condition]
+
 > heatmap.2(cU, symm=TRUE, col= colorRampPalette(c(“darkblue”,”white”))
+
 (100),
+
 labCol=colnames(cU), labRow=colnames(cU),
+
 distfun=function(c) as.dist(1 - c), trace=“none”, Colv=TRUE,
+
 cexRow=0.9, cexCol=0.9, key=F, font=2,
+
 RowSideColors=cols, ColSideColors=cols)`
 
 Draw PCA plot and correlation heatmap to visualize if the samples cluster per their conditions. In cases where samples do cluster in groups but the grouping is not the experimental conditions or genotypes, it indicates that the samples are clustered by other factors. These factors could be latent biological subtypes or technical factors such as the
