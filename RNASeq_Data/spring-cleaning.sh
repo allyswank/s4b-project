@@ -198,9 +198,9 @@ function main {
 
 	#If you would like to utilize one function at a time, insert a "#" before each function that you don't want to use.
 
-	#quality_check /home/aubars001/s4b-project/RNASeq_Data
-	#trim_reads /home/aubars001/s4b-project/RNASeq_Data
-	#qc_trimmed /home/aubars001/s4b-project/RNASeq_Data
+	quality_check /home/aubars001/s4b-project/RNASeq_Data
+	trim_reads /home/aubars001/s4b-project/RNASeq_Data
+	qc_trimmed /home/aubars001/s4b-project/RNASeq_Data
 	mapping /home/aubars001/s4b-project/RNASeq_Data
 	example /home/aubars001/s4b-project/RNASeq_Data
 
