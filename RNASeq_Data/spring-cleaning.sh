@@ -13,10 +13,10 @@
 #In this script we will:
 	#Check the quality of the reads
 	#Clean reads
+	#Check the quality of cleaned reads
 	#Index the genome
 	#Map the reads to a reference genome
 	#Get read counts per gene
-	#Use the read counts to find differentially expressed genes (DEGs)
 
 #Packages: FastQC, TrimGalore, STAR
 
@@ -181,21 +181,28 @@ function mapping {
         #--readFilesCommand zcat \\ tells STAR that files are gunzipped (.gz)
 	#--readFilesIn ___,___,___ \\ path to the FASTA files to be mapped to genome separated by commas
 
-	STAR --runThreadN 8 --quantMode GeneCounts --genomeDir /home/aubars001/s4b-project/RNASeq_Data/Genome/Mapped --readFilesCommand zcat --readFilesIn /home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Case/4040-KH-21.4040-KH-21_0_filtered_R1_val_1.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Case/4040-KH-21.4040-KH-21_0_filtered_R2_val_2.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Control/4040-KH-18.4040-KH-18_0_filtered_R1_val_1.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Control/4040-KH-18.4040-KH-18_0_filtered_R2_val_2.fq.gz
+	STAR --runThreadN 8 --quantMode GeneCounts --genomeDir /home/aubars001/s4b-project/RNASeq_Data/Genome/Mapped --readFilesCommand zcat --readFilesIn /home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Case/*.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Control/*.fq.gz
 
 	echo "Reads are now mapped to the genome!"
 }
 
+
+function example {
+
+	echo "Differential gene expression is dope."
+
+}
 
 
 function main {
 
 	#If you would like to utilize one function at a time, insert a "#" before each function that you don't want to use.
 
-	quality_check /home/aubars001/s4b-project/RNASeq_Data
-	trim_reads /home/aubars001/s4b-project/RNASeq_Data
-	qc_trimmed /home/aubars001/s4b-project/RNASeq_Data
+	#quality_check /home/aubars001/s4b-project/RNASeq_Data
+	#trim_reads /home/aubars001/s4b-project/RNASeq_Data
+	#qc_trimmed /home/aubars001/s4b-project/RNASeq_Data
 	mapping /home/aubars001/s4b-project/RNASeq_Data
+	example /home/aubars001/s4b-project/RNASeq_Data
 
 }
 
