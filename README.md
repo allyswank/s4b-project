@@ -1,4 +1,4 @@
-# Analysis of Gene Expression Following Environmental Stressors
+# RNA-Seq Data Analysis (Differential Gene Expression)
 
 Next generation sequencing has provided opportunities to understand the molecular and genomic consequences of climate change induced environmental stressors on organisms. Specifically, RNA-seq has enabled us to understand what genes are being up- or down-regulated in response to these stressors. By analyzing gene expression data, we have a much greater understanding of the physiological consequences that have been previously described in many model species. 
 
@@ -9,7 +9,7 @@ We developed the `~/RNASeq_Data/spring-cleaning.sh` script in this repository to
 
 This script is only the beginning of many that it takes to fully analyze and publish RNA-seq data. The [**Future Directions**](#Future-Directions) section outlines the programs and suggested statistics that can be used to understand the differential gene expression between treatments. 
 
-Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. We thank these mice for their service and dedication to the advancement of our scripting skills. 
+Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups: mouse with granzyme B-deficient TCRβ+CD4+ T cells and wild type mouse. We thank these mice for their service and dedication to the advancement of our scripting skills. 
 
 
 # Script Functions
