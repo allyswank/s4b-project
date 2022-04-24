@@ -1,4 +1,4 @@
-# Analysis of Gene Expression Following Environmental Stressors
+# RNA-Seq Data Analysis (Differential Gene Expression)
 
 Next generation sequencing has provided opportunities to understand the molecular and genomic consequences of climate change induced environmental stressors on organisms. Specifically, RNA-seq has enabled us to understand what genes are being up- or down-regulated in response to these stressors. By analyzing gene expression data, we have a much greater understanding of the physiological consequences that have been previously described in many model species. 
 
