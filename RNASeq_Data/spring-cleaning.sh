@@ -21,6 +21,8 @@
 #Packages: FastQC, TrimGalore, STAR
 
 #As you are specifying file locations in this script, keep in mind that each function begins in this home directory so you must provide the full path to the file.
+#All code is written in functions which are called in the main function at the very end. 
+
 
 ######################################################################################
 ######################################################################################
@@ -45,8 +47,13 @@ function quality_check {
 	mkdir FastQC #make a new directory for output files
 	cd Case #move into the directory with the fastq files
 	fastqc *.fastq.gz -o ~/s4b-project/RNASeq_Data/FastQC #Use FastQC to perform a quality check of sequences
+
+	echo "Quality checks complete on Case treatment data."
+
 	cd ../Control #move into directory with the control fastq files
 	fastqc *.fastq.gz -o ~/s4b-project/RNASeq_Data/FastQC #Use FastQC to perform a quality check of sequences
+
+	echo "Quality checks complete on Control treatment data."
 
 }
 
@@ -84,6 +91,8 @@ function trim_reads {
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Case 4040-KH-24.4040-KH-24_0_filtered_R1.fastq.gz 4040-KH-24.4040-KH-24_0_filtered_R2.fastq.gz
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Case 4040-KH-25.4040-KH-25_0_filtered_R1.fastq.gz 4040-KH-25.4040-KH-25_0_filtered_R2.fastq.gz
 
+	echo "Case sequences are trimmed!"
+
         cd ../Control #move into directory with the control fastq files
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Control 4040-KH-1.4040-KH-1_0_filtered_R1.fastq.gz 4040-KH-1.4040-KH-1_0_filtered_R2.fastq.gz
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Control 4040-KH-4.4040-KH-4_0_filtered_R1.fastq.gz 4040-KH-4.4040-KH-4_0_filtered_R2.fastq.gz
@@ -91,6 +100,8 @@ function trim_reads {
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Control 4040-KH-6.4040-KH-6_0_filtered_R1.fastq.gz 4040-KH-6.4040-KH-6_0_filtered_R2.fastq.gz
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Control 4040-KH-17.4040-KH-17_0_filtered_R1.fastq.gz 4040-KH-17.4040-KH-17_0_filtered_R2.fastq.gz
 	trim_galore --paired --output_dir ~/s4b-project/RNASeq_Data/TrimmedReads/Control 4040-KH-18.4040-KH-18_0_filtered_R1.fastq.gz 4040-KH-18.4040-KH-18_0_filtered_R2.fastq.gz
+
+	echo "Control sequences are trimmed!"
 
 }
 
@@ -115,8 +126,13 @@ function qc_trimmed {
         
 	cd TrimmedReads/Case #move into the directory with the case fastq files
         fastqc *.fq.gz -o ~/s4b-project/RNASeq_Data/TrimmedReads/trimmed-FastQC #Use FastQC to perform a quality check of sequences
+
+	echo "Quality checks complete on trimmed Case treatment data."
+
         cd ../Control #move into directory with the control fastq files
         fastqc *.fq.gz -o ~/s4b-project/RNASeq_Data/TrimmedReads/trimmed-FastQC #Use FastQC to perform a quality check of sequences
+
+	echo "Quality checks complete on trimmed Control treatment data."
 
 }
 
@@ -155,6 +171,8 @@ function mapping {
 
 	STAR --runThreadN 8 --runMode genomeGenerate --genomeDir /home/aubars001/s4b-project/RNASeq_Data/Genome/Mapped --genomeFastaFiles /home/aubars001/s4b-project/RNASeq_Data/Genome/GCA_000001635.9_GRCm39_genomic.fna --sjdbGTFfile /home/aubars001/s4b-project/RNASeq_Data/Genome/GCA_000001635.9_GRCm39_genomic.gtf --sjdbOverhang 99
 	
+	echo "Genome indexing is complete."
+
 	########################## MAPPING RNA-SEQ TO INDEX ############################
 
 	#STAR --runThreadN ___ \\ number of cores
@@ -165,11 +183,14 @@ function mapping {
 
 	STAR --runThreadN 8 --quantMode GeneCounts --genomeDir /home/aubars001/s4b-project/RNASeq_Data/Genome/Mapped --readFilesCommand zcat --readFilesIn /home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Case/4040-KH-21.4040-KH-21_0_filtered_R1_val_1.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Case/4040-KH-21.4040-KH-21_0_filtered_R2_val_2.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Control/4040-KH-18.4040-KH-18_0_filtered_R1_val_1.fq.gz,/home/aubars001/s4b-project/RNASeq_Data/TrimmedReads/Control/4040-KH-18.4040-KH-18_0_filtered_R2_val_2.fq.gz
 
+	echo "Reads are now mapped to the genome!"
 }
 
 
 
 function main {
+
+	#If you would like to utilize one function at a time, insert a "#" before each function that you don't want to use.
 
 	quality_check /home/aubars001/s4b-project/RNASeq_Data
 	trim_reads /home/aubars001/s4b-project/RNASeq_Data
