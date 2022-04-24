@@ -86,64 +86,46 @@ After aligning RNA-seq data to a reference genome or transcriptome and obtaining
 
 The genes that are highly expressed can then be passed through *DESeq2*, a program to analyze differential gene expression between treatment groups. Yalamanchili et al. (2019) provides descriptive documentation on these analyses, and the code outlined in this section was modified from their manuscript published in *Current Protocols in Bioinformatics*. This code can be further adapted to analyze any other RNA-seq dataset. 
 
-####### Create data objects:
+###### Create data objects:
 
-`> sample.names <- sort(paste(c(“CASE”, “CONTROL”), rep(1:3, each=2), sep=““))
+```
+sample.names <- sort(paste(c(“CASE”, “CONTROL”), rep(1:3, each=2), sep=““))
 
-> file.names <- paste(“../”, sample.names, “/”, sample.names, “.count.txt”,sep=““)
+file.names <- paste(“../”, sample.names, “/”, sample.names, “.count.txt”,sep=““)
 
-> conditions <- factor(c(rep(“CASE”, 3), rep(“CONTROL”, 3)))
+conditions <- factor(c(rep(“CASE”, 3), rep(“CONTROL”, 3)))
 
-> sampleTable <- data.frame(sampleName=sample.names,
+sampleTable <- data.frame(sampleName=sample.names, fileName=file.names, condition=conditions)
 
-fileName=file.names,
-
-condition=conditions)
-
-> ddsGENECOUNT<-DESeqDataSetFromGeneCount(sampleTable=sampleTable,
-
-directory=“.”,
-
-design=~ condition )`
+ddsGENECOUNT <- DESeqDataSetFromGeneCount(sampleTable=sampleTable, directory=“.”, design=~ condition )
+```
 
 This step tells R the sample identifiers, names of files with gene counts, and experiment conditions for each sample.
 
 
-######Run differential gene analysis:
+###### Run differential gene analysis:
 
-`> ddsGENECOUNT <- ddsGENECOUNT[rowSums(counts(ddsGENECOUNT)) > 10, ]
+```
+ddsGENECOUNT <- ddsGENECOUNT[rowSums(counts(ddsGENECOUNT)) > 10, ]
 
-> dds <-DESeq(ddsGENECOUNT)`
+dds <-DESeq(ddsGENECOUNT)
+```
 
+###### Quality checks on the samples with a PCA plot and heatmap:
 
-######Quality checks on the samples with a PCA plot and heatmap:
+```
+rld <- rlogTransformation(dds, blind=FALSE)
 
-`> rld <- rlogTransformation(dds, blind=FALSE)
+plotPCA(rld, intgroup=“condition”, ntop=nrow(counts(ddsGENECOUNT)))
 
-> plotPCA(rld, intgroup=“condition”, ntop=nrow(counts(ddsGENECOUNT)))
+cU <-cor( as.matrix(assay(rld)))
 
-> cU <-cor( as.matrix(assay(rld)))
+cols <- c( “dodgerblue3”, “firebrick3” )[condition]
 
-> cols <- c( “dodgerblue3”, “firebrick3” )[condition]
+heatmap.2(cU, symm=TRUE, col= colorRampPalette(c(“darkblue”,”white”)) (100), labCol=colnames(cU), labRow=colnames(cU), distfun=function(c) as.dist(1 - c), trace=“none”, Colv=TRUE, cexRow=0.9, cexCol=0.9, key=F, font=2, RowSideColors=cols, ColSideColors=cols)
+```
 
-> heatmap.2(cU, symm=TRUE, col= colorRampPalette(c(“darkblue”,”white”))
-
-(100),
-
-labCol=colnames(cU), labRow=colnames(cU),
-
-distfun=function(c) as.dist(1 - c), trace=“none”, Colv=TRUE,
-
-cexRow=0.9, cexCol=0.9, key=F, font=2,
-
-RowSideColors=cols, ColSideColors=cols)`
-
-Draw PCA plot and correlation heatmap to visualize if the samples cluster per their conditions. In cases where samples do cluster in groups but the grouping is not the experimental conditions or genotypes, it indicates that the samples are clustered by other factors. These factors could be latent biological subtypes or technical factors such as the
-batch effect.
-
-
-
-
+Draw PCA plot and correlation heatmap to visualize if the samples cluster per their conditions. In cases where samples do cluster in groups but the grouping is not the experimental conditions or genotypes, it indicates that the samples are clustered by other factors.
 
 
 # Box Folder
