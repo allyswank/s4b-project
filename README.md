@@ -9,7 +9,7 @@ We developed the `~/RNASeq_Data/spring-cleaning.sh` script in this repository to
 
 This script is only the beginning of many that it takes to fully analyze and publish RNA-seq data. The [**Future Directions**](#Future-Directions) section outlines the programs and suggested statistics that can be used to understand the differential gene expression between treatments. 
 
-Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups. We thank these mice for their service and dedication to the advancement of our scripting skills. 
+Total RNA was extracted from the common mouse species, *Mus musculus*, that was exposed to two separate treatment groups: mouse with granzyme B-deficient TCRβ+CD4+ T cells and wild type mouse. We thank these mice for their service and dedication to the advancement of our scripting skills. 
 
 
 # Script Functions
